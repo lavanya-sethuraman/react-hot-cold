@@ -1,4 +1,4 @@
-import {GET_GUESSES, GIVE_FEEDBACK, SET_CORRECT_ANSWER} from '../actions';
+import {NEW_GAME, CHECK_GUESS} from '../actions';
 
 const initialState = {
     guesses: [],
@@ -7,21 +7,47 @@ const initialState = {
 };
 
 export const guessGameReducer = (state=initialState, action) => {
-    if (action.type === GET_GUESSES) {
+    if (action.type === NEW_GAME) {
         return Object.assign({}, state, {
-           guesses: action.guesses
+        guesses: [],
+        feedback: 'Make your guess!',
+        correctAnswer: Math.floor(Math.random() * 100) + 1,
         });
     }
-    else if (action.type === GIVE_FEEDBACK) {
+    else if (action.type === CHECK_GUESS) {
+        let feedback;
+        let guess = action.guess;
+        guess = parseInt(guess, 10);
+        const difference = Math.abs(guess - this.state.correctAnswer);
+
+        if (isNaN(guess)) {
+            this.setState({
+                feedback: 'Please enter a valid number'
+            });
+        }
+        
+        if (difference >= 50) {
+            feedback = 'You\'re Ice Cold...';
+        }
+        else if (difference >= 30) {
+            feedback = 'You\'re Cold...';
+        }
+        else if (difference >= 10) {
+            feedback = 'You\'re Warm';
+        }
+        else if (difference >= 1) {
+            feedback = 'You\'re Hot!';
+        }
+        else {
+            feedback = 'You got it!';
+        }
+
         return Object.assign({}, state, {
-            feedback: action.feedback
+            feedback,
+            guesses: [...this.state.guesses, guess]
         });
     }
-    else if (action.type === SET_CORRECT_ANSWER) {
-        return Object.assign({}, state, {
-           answer: action.answer
-        });
-    }
+   
     return state;
 };
 

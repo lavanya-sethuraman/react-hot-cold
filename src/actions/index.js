@@ -1,11 +1,15 @@
 export const NEW_GAME = 'NEW_GAME';
-export const newGame = () =>{
-    type: NEW_GAME
-}
 export const CHECK_GUESS = 'CHECK_GUESS';
-export const checkGuess = guess =>{
-    type: CHECK_GUESS,
-    guess
+
+export const newGame = () => { 
+    return {
+        type: NEW_GAME
+    }
 }
 
-
+export const checkGuess = guess => {
+    return {
+      type: CHECK_GUESS,
+      guess: guess
+    }
+}

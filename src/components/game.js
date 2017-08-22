@@ -4,9 +4,10 @@ import Header from './header';
 import GuessSection from './guess-section';
 import GuessCount  from './guess-count';
 import GuessList from './guess-list';
-import {newGame,checkGuess} from '../actions'
+import {newGame, checkGuess} from '../actions'
 
 export class Game extends React.Component {
+
     render() {
         return (
             <div>
@@ -19,13 +20,13 @@ export class Game extends React.Component {
         );
     }
 }
+
 const mapStateToProps = state => {
     return ({
-    guesses: state.guesses,
-    feedback : state.feedback,
-    correctAnswer : state.correctAnswer
+      guesses: state.guesses,
+      feedback : state.feedback,
+      correctAnswer : state.correctAnswer
     });
 }
-
 
 export default connect(mapStateToProps)(Game);
